@@ -41,7 +41,6 @@ if(nextProps && nextProps.countries.length>0){
 
   fetchCountries = ({name='', id='',skip=0,limit=15}) => {
     this.props.fetchCountriesRequest({name,
-
       id:'',
       skip:this.limit * (this.state.pageIndex - 1),
       limit:this.limit
@@ -58,7 +57,7 @@ if(nextProps && nextProps.countries.length>0){
     this.setState({
       pageIndex: this.state.pageIndex + 1
     }, () => {
-      this.fetchCountries();
+      this.fetchCountries({});
     })
   }
 
@@ -66,7 +65,7 @@ if(nextProps && nextProps.countries.length>0){
     this.setState({
       pageIndex: this.state.pageIndex - 1
     }, () => {
-      this.fetchCountries()
+      this.fetchCountries({})
     })
   }
 
@@ -108,7 +107,7 @@ if(nextProps && nextProps.countries.length>0){
       return content;
     };
     return (
-      <tr key={rowData.id} onClick={() => onRowClick(rowData)}>
+      <tr style={{textAlign:'left'}} key={rowData.id} onClick={() => onRowClick(rowData)}>
         {columns.map(column => (
           <td
             style={column.textAlign ? { textAlign: column.textAlign } : {}}
@@ -143,7 +142,7 @@ if(nextProps && nextProps.countries.length>0){
       <BoxHeader>
         <BoxTitle><div>Countries</div>
         <div>
-          <input type="text" placeholder="SearchCountries" onChange= {this.handleSearchButton.bind(this) }/>
+          <input style={{padding:'7px', textAlign:'center'}} type="text" placeholder="SearchCountries" onChange= {this.handleSearchButton.bind(this) }/>
           </div>
           </BoxTitle>
         <BoxTools>
@@ -167,7 +166,7 @@ if(nextProps && nextProps.countries.length>0){
       </BoxHeader>
 
       <BoxBody>
-        <Col sm={3}>
+        <Col sm={2} style={{background: "#e6e6e6", textAlign: "left"}}>
           {this.state.fields.map((field, i) => (
             <Col key={i} sm={12}>
               <Checkbox checked={field.visible} onChange={this.onFieldChange.bind(this, field.name)}>{field.label}</Checkbox>
@@ -175,7 +174,7 @@ if(nextProps && nextProps.countries.length>0){
           ))}
 
         </Col>
-        <Col sm={9}>
+        <Col sm={10}>
           <GridView items={this.props.countries} RowComponent={this.RowComponent}>
 
             {this.state.fields.map((field, i) => {
